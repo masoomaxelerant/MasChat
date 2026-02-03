@@ -44,7 +44,7 @@ class MasChatController extends Controller
             // })->ignore($user->id, 'user_id')->whereNull('user_id')->messages(),
         ]);
     
-        auth()->user()->maschats()->create($validated);    
+        auth()->user()->maschat()->create($validated);    
         return redirect('/')->with('success', 'Your MasChat has been posted successfully!');
     }
 

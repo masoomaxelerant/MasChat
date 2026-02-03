@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Maschat;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class MasChatPolicy
 {
@@ -29,7 +28,7 @@ class MasChatPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,23 +36,15 @@ class MasChatPolicy
      */
     public function update(User $user, Maschat $maschat): bool
     {
-        $this->authorize('update', $maschat);
-        if ($user->cannot('update', $maschat)) {
-          abort(403);
-        }
-        return $maschat->user()->is($user);
+        return $maschat->user_id && $maschat->user()->is($user);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Maschat $mashat): bool
+    public function delete(User $user, Maschat $maschat): bool
     {
-        this->authorize('delete', $maschat);
-        if ($user->cannot('delete', $maschat)) {
-          abort(403);
-        }
-        return $maschat->user()->is($user);
+        return $maschat->user_id && $maschat->user()->is($user);
     }
 
     /**
